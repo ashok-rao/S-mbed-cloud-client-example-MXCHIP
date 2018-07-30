@@ -116,13 +116,13 @@ int main(void) {
         printf("spif read size: %llu\n",    sd.get_read_size());
         printf("spif erase size: %llu\n",   sd.get_erase_size());
     }
+//Un-comment the below block if forcible flash erase is required.
 /*
     int erase_status = sd.erase(0, sd.size());
     if (erase_status == 0) {
          printf("SPIF erased\n");
     }
 */
-//LittleFileSystem::format(&sd);
 
     // Connect to the internet (DHCP is expected to be on)
     WicedInterface net;
@@ -138,9 +138,11 @@ int main(void) {
     // SimpleMbedCloudClient handles registering over LwM2M to Mbed Cloud
     //SimpleMbedCloudClient client(&net, &sd, &fs);
 
+    //Un-comment the below line to demonstrate remote firmware update.
+    //printf("*********This line demonstrates a firmware update*********\r\n");
+    
     //create SMCC obj here---------------
-printf("*********This line demonstrates a firmware update*********\r\n");
-	SimpleMbedCloudClient client(&net, &sd, &fs);
+    SimpleMbedCloudClient client(&net, &sd, &fs);
     int client_status = client.init();
     printf("client_status = %d\n", client_status);
     if (client_status != 0) {
